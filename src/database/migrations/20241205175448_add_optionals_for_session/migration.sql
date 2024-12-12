@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Session" ALTER COLUMN "createdAt" DROP NOT NULL,
+ALTER COLUMN "expiresAt" DROP NOT NULL;

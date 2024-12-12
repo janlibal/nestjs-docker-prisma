@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "target": "ES2017", // Jest works better with this target
+      "module": "commonjs", // Jest expects CommonJS modules
+      "types": ["jest"] // Add Jest types to ensure type checking works
+    },
+    "include": ["src/**/*.ts", "test/**/*.ts"]
+  }
+  
