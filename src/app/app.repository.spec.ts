@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { AppRepository } from './app.repository'
 import { PrismaService } from '../database/prisma.service'
-import { StatusEnum } from '../statuses/statuses.enum'
-import { Status } from '../statuses/domain/status.domain'
 
 describe('AppRepository', () => {
   let repository: AppRepository
@@ -35,35 +33,15 @@ describe('AppRepository', () => {
 
   it('should create a user', async () => {
 
-    const usr = ({
+    const clonedPayload = ({
       password: 'Password123!',
       email: 'john@example.com',
-      status: {
-        id: StatusEnum.inactive,
-      },
     })
-
-    let status: Status | undefined = undefined
-    status = { id: usr.status.id }
-
-    const clonedPayload = {
-      password: usr.password, 
-      email: usr.email, 
-      status: status
-    }
-
-    /*const createUserDto = {
-      password: 'Password123!',
-      email: 'john@example.com',
-    }*/
 
     const returnedUser = {
       id: 'b545cb1e-5c4f-46c3-b42d-b3db8ffa87ce',
       password: 'Password123!',
       email: 'todd.doe@joedoe.com',
-      status: {
-        id: 1//StatusEnum.inactive
-      }
     }
     mockPrismaService.user.create.mockResolvedValue(returnedUser)
     const result = await repository.saveAndLogin(clonedPayload)
