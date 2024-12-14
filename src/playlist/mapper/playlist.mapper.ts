@@ -5,7 +5,8 @@ import { Playlist as PlaylistEntity } from '@prisma/client'
 export class PlaylistMapper {
   static async toPersistence(data: Playlist): Promise<Omit<PlaylistEntity, 'id'>> {
     const persistenceEntity: Omit<PlaylistEntity, 'id'> = {
-      title: data.title
+      title: data.title,
+      statusId: data.status.id
     }
     return persistenceEntity
   }
@@ -13,7 +14,8 @@ export class PlaylistMapper {
   static async toDomain(raw: PlaylistEntity): Promise<Playlist> {
     const domainEntity: Playlist = {
       id: raw.id,
-      title: raw.title
+      title: raw.title,
+      status: { id: raw.statusId }
     }
     return domainEntity
   }

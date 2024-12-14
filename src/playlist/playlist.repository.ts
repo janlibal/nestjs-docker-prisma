@@ -12,13 +12,3 @@ export class PlaylistRepository {
     return await PlaylistMapper.toDomain(newEntity)
   }
 }
-
-/*
-
-async save(data: User): Promise<User> {
-    const persistenceModel = await AppMapper.toPersistence(data)
-    const newEntity = await this.prisma.user.create({ data: persistenceModel })
-    return await AppMapper.toDomain(newEntity)
-  }
-
-  */

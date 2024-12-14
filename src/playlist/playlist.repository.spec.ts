@@ -4,6 +4,7 @@ import { PrismaService } from '../database/prisma.service'
 import { PlaylistDto } from './dto/playlist.dto'
 import { Playlist } from './domain/playlist.domain'
 import { Playlist as PlaylistEntity } from '@prisma/client'
+import { faker } from '@faker-js/faker'
 
 describe('PlaylistRepository', () => {
   let playlistRepository: PlaylistRepository
@@ -33,12 +34,15 @@ describe('PlaylistRepository', () => {
   describe('creating a playlist', () => {
     it('calls the repository with correct paramaters', async () => {
       const inputData: Playlist = {
-        title: 'Green Day',
+        title: faker.lorem.word(),
+        status: {id: 1}
       }
 
       const data: PlaylistEntity = {
-        id: 'b545cb1e-5c4f-46c3-b42d-b3db8ffa87ce',
+        id: faker.string.uuid(),
         title: inputData.title,
+        statusId: inputData.status.id
+
       }
 
       /*const playlistRepositorySaveSpy = jest.spyOn(playlistRepository, 'save').mockResolvedValue(savedPlaylist);
