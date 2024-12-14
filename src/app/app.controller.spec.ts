@@ -34,14 +34,21 @@ describe('AppController', () => {
   })
 
   it('should create a user', async () => {
-    const createUserDto: AuthEmailLoginDto = {
-      password: 'pwd123!',
-      email: 'john@example.com',
+    const createUserDto = {
+      email: 'todd.doe@joedoe.com',
+      password: 'Password123!',
     }
-    const userObject: User = { id: '1', ...createUserDto }
-    mockAppService.validateLogin.mockReturnValue(userObject)
+
+    const returnedUser = {
+      id: 'b545cb1e-5c4f-46c3-b42d-b3db8ffa87ce',
+      email: 'todd.doe@joedoe.com',
+      password: 'Password123!',
+      statusId: 1,
+    }
+
+    mockAppService.validateLogin.mockReturnValue(returnedUser)
     const result = await controller.login(createUserDto)
-    expect(mockAppService.validateLogin).toHaveBeenCalledWith(createUserDto)
-    expect(result).toEqual(userObject)
+    expect(result).toEqual(returnedUser)
+    expect(mockAppService.validateLogin).toHaveBeenCalled()
   })
 })

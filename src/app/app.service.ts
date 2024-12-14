@@ -34,8 +34,9 @@ export class AppService {
     const hash = 'HASH!!!!!'
 
     const clonedPayload = {
-      password: creteUserDto.password, 
-      email: creteUserDto.email, 
+      password: creteUserDto.password,
+      email: creteUserDto.email,
+      statusId: 1,
     }
     const user = await this.appRepository.saveAndLogin(clonedPayload)
     const userId = user.id

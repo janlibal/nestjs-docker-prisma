@@ -32,19 +32,22 @@ describe('SessionService', () => {
   })
 
   it('should get session data', async () => {
-    const inputData: Omit<Session, 'expiresAt' | 'createdAt' | 'hash' | 'userId'> = { id: 21 }
+    const inputData: Omit<
+      Session,
+      'expiresAt' | 'createdAt' | 'hash' | 'userId'
+    > = { id: 21 }
 
     const outputData = {
-        id: 21,
-        hash: 'HASH!!!!!',
-        expiresAt: null,
-        createdAt: '2024-12-10T16:14:57.213Z',
-        userId: '19127268-b6d9-439b-8450-94859c73e9af',
-        user: {
-            id: '19127268-b6d9-439b-8450-94859c73e9af',
-            password: 'Password123!',
-            email: 'joe.doe@joedoe.com'
-        }
+      id: 21,
+      hash: 'HASH!!!!!',
+      expiresAt: null,
+      createdAt: '2024-12-10T16:14:57.213Z',
+      userId: '19127268-b6d9-439b-8450-94859c73e9af',
+      user: {
+        id: '19127268-b6d9-439b-8450-94859c73e9af',
+        password: 'Password123!',
+        email: 'joe.doe@joedoe.com',
+      },
     }
 
     mockSessionRepository.findById.mockResolvedValue(outputData)
@@ -52,7 +55,4 @@ describe('SessionService', () => {
     expect(result).toEqual(expect.objectContaining(outputData))
     expect(mockSessionRepository.findById).toHaveBeenCalledWith(inputData)
   })
-
-
-  
 })

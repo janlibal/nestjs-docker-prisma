@@ -8,7 +8,7 @@ describe('AppRepository', () => {
 
   const mockPrismaService = {
     user: {
-      create: jest.fn()
+      create: jest.fn(),
     },
   }
 
@@ -31,21 +31,24 @@ describe('AppRepository', () => {
     expect(repository).toBeDefined()
   })
 
-  it('should create a user', async () => {
-
-    const clonedPayload = ({
+  it('should create a user || REPOSITORY', async () => {
+    const clonedPayload = {
+      email: 'todd.doe@joedoe.com',
       password: 'Password123!',
-      email: 'john@example.com',
-    })
+      statusId: 1,
+    }
 
     const returnedUser = {
       id: 'b545cb1e-5c4f-46c3-b42d-b3db8ffa87ce',
-      password: 'Password123!',
       email: 'todd.doe@joedoe.com',
+      password: 'Password123!',
+      statusId: 1,
     }
     mockPrismaService.user.create.mockResolvedValue(returnedUser)
     const result = await repository.saveAndLogin(clonedPayload)
     expect(result).toEqual(returnedUser)
-    expect(mockPrismaService.user.create).toHaveBeenCalledWith({ data: clonedPayload })
+    expect(mockPrismaService.user.create).toHaveBeenCalledWith({
+      data: clonedPayload,
+    })
   })
 })

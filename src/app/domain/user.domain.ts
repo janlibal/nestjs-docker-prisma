@@ -7,7 +7,9 @@ export class User {
   @Expose()
   email: string | null
 
-  @Exclude({ toPlainOnly: true })
+  @Expose()
   password: string
 
+  @Expose()
+  statusId: number
 }
