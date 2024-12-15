@@ -5,12 +5,13 @@ import { PlaylistDto } from './dto/playlist.dto'
 import { Playlist } from './domain/playlist.domain'
 import { Playlist as PlaylistEntity } from '@prisma/client'
 import { faker } from '@faker-js/faker'
+import { Status } from 'src/statuses/domain/status.domain'
 
 describe('PlaylistRepository', () => {
   let playlistRepository: PlaylistRepository
-  let prismaService: PrismaService
+  //let prismaService: PrismaService
 
-  const mockPrismaService = {
+  const prismaService = {
     playlist: {
       create: jest.fn(),
     },
@@ -22,13 +23,13 @@ describe('PlaylistRepository', () => {
         PlaylistRepository,
         {
           provide: PrismaService,
-          useValue: mockPrismaService,
+          useValue: prismaService,
         },
       ],
     }).compile()
 
     playlistRepository = module.get<PlaylistRepository>(PlaylistRepository)
-    prismaService = module.get<PrismaService>(PrismaService)
+    //prismaService = module.get<PrismaService>(PrismaService)
   })
 
   describe('creating a playlist', () => {
@@ -42,21 +43,15 @@ describe('PlaylistRepository', () => {
         id: faker.string.uuid(),
         title: inputData.title,
         statusId: inputData.status.id
-
       }
 
-      /*const playlistRepositorySaveSpy = jest.spyOn(playlistRepository, 'save').mockResolvedValue(savedPlaylist);
-    const playlistRepositoryCreateSpy = jest.spyOn(playlistRepository, 'create').mockReturnValue(createdPlaylistEntity);
-    const result = await playlistRepository.save(createPlaylistData);
-    expect(playlistRepositoryCreateSpy).toBeCalledWith(createPlaylistData);
-    expect(playlistRepositorySaveSpy).toBeCalledWith(createdPlaylistEntity);
-    expect(result).toEqual(savedPlaylist);*/
-
-      mockPrismaService.playlist.create.mockResolvedValue(data)
+      prismaService.playlist.create.mockResolvedValue(data)
       const result = await playlistRepository.save(inputData)
       expect(result).toEqual(data)
-      expect(mockPrismaService.playlist.create).toHaveBeenCalledWith({
-        data: inputData,
+      
+      console.log('RESULT DATA: ', result)
+      expect(prismaService.playlist.create).toHaveBeenCalledWith({
+        data: data,
       })
     })
   })

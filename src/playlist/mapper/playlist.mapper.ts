@@ -1,3 +1,4 @@
+import { Status } from "src/statuses/domain/status.domain"
 import { Playlist } from "../domain/playlist.domain"
 import { Playlist as PlaylistEntity } from '@prisma/client'
 
@@ -12,10 +13,13 @@ export class PlaylistMapper {
   }
 
   static async toDomain(raw: PlaylistEntity): Promise<Playlist> {
+    const status: Status = {
+        id: raw.statusId
+    }
     const domainEntity: Playlist = {
       id: raw.id,
       title: raw.title,
-      status: { id: raw.statusId }
+      status: status
     }
     return domainEntity
   }
