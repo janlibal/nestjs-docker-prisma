@@ -9,8 +9,7 @@ export class PlaylistService {
 
   async createOne(playlistDto: PlaylistDto): Promise<Playlist> {
     const clonedPayload: Playlist = {
-      title: playlistDto.title,
-      status: { id: 2 }
+      title: playlistDto.title
     }
     return await this.playlistRepository.save(clonedPayload)
   }
