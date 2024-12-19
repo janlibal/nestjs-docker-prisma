@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+      "module": "CommonJS",
+      "declaration": true,
+      "strict": true,
+      "removeComments": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "target": "es2022",
+      "sourceMap": true,
+      "outDir": "./dist",
+      "noEmit": true,
+      "allowJs": true,
+      "baseUrl": ".",
+      "noImplicitAny": false,
+      "incremental": true,
+      "resolveJsonModule": true,
+      "skipLibCheck": true,
+      "types": [
+        "vitest/globals"
+      ],
+    },
+    "include": [
+      "./src/**/*.ts",
+      "./src/**/*.tsx",
+      "./src/**/*.js",
+      "./src/**/*.jsx",
+      "./**/*.ts",
+      "../apps/core/src/**/*.ts",
+    ]
+  }
