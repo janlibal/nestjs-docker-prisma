@@ -18,12 +18,11 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
-    
     "moduleResolution": "node", 
     "esModuleInterop": true,
     "strict": true,
-    "types": ["node"], // Add jest types here
+    "types": ["node", "vitest/globals"], // Add jest types here
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"]   
 }

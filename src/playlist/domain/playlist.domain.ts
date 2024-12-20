@@ -1,5 +1,5 @@
-import { Type } from "class-transformer"
-import { Status } from "../../statuses/domain/status.domain"
+import { Type } from 'class-transformer'
+import { Status } from '../../statuses/domain/status.domain'
 
 export class Playlist {
   public id?: string

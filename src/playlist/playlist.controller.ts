@@ -9,6 +9,7 @@ import {
 import { PlaylistService } from './playlist.service'
 import { Playlist } from './domain/playlist.domain'
 import { PlaylistDto } from './dto/playlist.dto'
+import { Playlist as PlaylistEntity } from '@prisma/client'
 
 @Controller()
 export class PlaylistController {
@@ -16,7 +17,7 @@ export class PlaylistController {
 
   @Post('playlist')
   @HttpCode(HttpStatus.OK)
-  public insert(@Body() playlistDto: PlaylistDto): Promise<Playlist> {
+  public insert(@Body() playlistDto: PlaylistDto): Promise<PlaylistEntity> {
     return this.playlistService.createOne(playlistDto)
   }
 }
