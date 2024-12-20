@@ -1,6 +1,5 @@
 import { PlaylistDto } from "../../../src/playlist/dto/playlist.dto"
 
-
 export const generateMockPlaylist = (): PlaylistDto => {
   return {
     title: "Band name!"

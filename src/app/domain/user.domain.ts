@@ -1,4 +1,5 @@
 import { Exclude, Expose, Type } from 'class-transformer'
+import { Status } from 'src/statuses/domain/status.domain'
 
 export class User {
   @Expose()
@@ -11,5 +12,6 @@ export class User {
   password: string
 
   @Expose()
-  statusId: number
+  @Type(() => Status) 
+  status?: Status
 }
