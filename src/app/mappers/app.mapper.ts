@@ -21,7 +21,7 @@ export class AppMapper {
       id: raw.id,
       password: raw.password,
       email: raw.email,
-      status: statusObject
+      status: { id: 1 }
     }
     console.log('DOMAIN: ', domainEntity)
     return domainEntity

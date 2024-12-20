@@ -5,10 +5,7 @@ import { MockedDatabaseModule } from '../mock/database/database.module'
 
 
 type ClassType<T> = new (...args: any[]) => T
-export const createRepositoryUnitTestApp = <T>(
-  Repository: ClassType<T>,
-  module?: ModuleMetadata,
-) => {
+export const createRepositoryUnitTestApp = <T>(Repository: ClassType<T>,module?: ModuleMetadata,) => {
   const proxy = {} as {
     repository: T
     app: TestingModule

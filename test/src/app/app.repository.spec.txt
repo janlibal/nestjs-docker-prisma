@@ -1,0 +1,43 @@
+// src/user/user.service.spec.ts
+import { Test, TestingModule } from '@nestjs/testing'
+import { AppRepository } from '../../../src/app/app.repository'
+import { PrismaService } from '../../../src/database/prisma.service'
+import { vi, describe, beforeEach, it, expect } from 'vitest'
+
+// Mock the PrismaService
+vi.mock('../src/database/prisma.service')
+
+describe('AppRepository', () => {
+  let repository: AppRepository
+  let prismaService: PrismaService
+
+  beforeEach(async () => {
+    // Create a testing module with the necessary providers
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [AppRepository, PrismaService],
+    })
+      .overrideProvider(PrismaService) // Override PrismaService with the mock
+      .useValue({ user: { create: vi.fn() } }) // Mock the user methods
+      .compile()
+
+    repository = module.get<AppRepository>(AppRepository)
+    prismaService = module.get<PrismaService>(PrismaService)
+  })
+
+  it('App should be defined', () => {
+    expect(repository).toBeDefined()
+  })
+
+  it('should create a new user', async () => {
+    const newUserDto = { email: 'band@email.com', password: 'Password123!!!', status: {id:1} }
+    const returnedUserObject = { id: '52e34616-79b2-4e7b-8444-0c3edcc760fd', password: 'Password123!!!', email: 'band@email.com', status: {id:1}}
+
+    // Mock the Prisma create method to return a promise that resolves with a user object
+    prismaService.user.create = vi.fn().mockResolvedValue(returnedUserObject) //prismaService.playlist.create = vi.fn().mockResolvedValue(playlistDto)
+
+    const result = await repository.saveAndLogin(newUserDto)
+
+    expect(result).toEqual(returnedUserObject) // Check that the result matches the mock
+    expect(prismaService.user.create).toHaveBeenCalledWith({data: newUserDto})
+  })
+})
