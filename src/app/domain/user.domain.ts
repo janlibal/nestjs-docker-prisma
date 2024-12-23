@@ -12,6 +12,6 @@ export class User {
   password: string
 
   @Expose()
-  @Type(() => Status) 
+  @Type(() => Status)
   status?: Status
 }

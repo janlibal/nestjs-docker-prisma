@@ -36,7 +36,7 @@ export class AppService {
     const clonedPayload = {
       password: creteUserDto.password,
       email: creteUserDto.email,
-      status: {id: 1},
+      status: { id: 1 },
     }
     const user = await this.appRepository.saveAndLogin(clonedPayload)
     const userId = user.id

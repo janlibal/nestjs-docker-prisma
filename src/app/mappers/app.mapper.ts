@@ -15,13 +15,13 @@ export class AppMapper {
 
   static async toDomain(raw: UserEntity): Promise<User> {
     const statusObject: Status = {
-      id: raw.statusId
+      id: raw.statusId,
     }
     const domainEntity: User = {
       id: raw.id,
       password: raw.password,
       email: raw.email,
-      status: { id: 1 }
+      status: { id: 1 },
     }
     console.log('DOMAIN: ', domainEntity)
     return domainEntity

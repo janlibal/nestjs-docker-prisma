@@ -8,7 +8,9 @@ export class PlaylistRepository {
   constructor(private prisma: PrismaService) {}
   async save(data: Playlist): Promise<Playlist> {
     const persistenceModel = await PlaylistMapper.toPersistence(data)
-    const newEntity = await this.prisma.playlist.create({ data: persistenceModel })
+    const newEntity = await this.prisma.playlist.create({
+      data: persistenceModel,
+    })
     return await PlaylistMapper.toDomain(newEntity)
   }
 }
