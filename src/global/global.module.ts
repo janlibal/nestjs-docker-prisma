@@ -6,6 +6,7 @@ import appConfig from '../app/config/app.config'
 import { PlaylistModule } from '../playlist/playlist.module'
 import { PostModule } from '../post/post.module'
 import { SessionModule } from '../session/session.module'
+import { LoggerModule } from 'src/logger/logger.module'
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { SessionModule } from '../session/session.module'
       load: [appConfig],
       envFilePath: ['.env'],
     }),
+    LoggerModule,
     AppModule,
     PrismaModule,
     SessionModule,

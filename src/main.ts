@@ -5,9 +5,13 @@ import { AllConfigType } from './config/config/config.type'
 import { API_PREFIX } from './shared/constants/global.constants'
 import { ValidationPipe } from '@nestjs/common'
 import { PrismaClientExceptionFilter } from 'nestjs-prisma'
+import { PinoLoggerService } from './logger/adapters/pino.logger.service'
 
 async function bootstrap() {
   const app = await NestFactory.create(GlobalModule)
+  const logger = app.get(PinoLoggerService)
+  logger.setContext('main')
+  app.useLogger(logger)
 
   // Validation
   app.useGlobalPipes(new ValidationPipe())
@@ -38,6 +42,7 @@ async function bootstrap() {
     console.log(`dbUrl: ${dbUrl}`)
     console.log(`apiPrefix: ${apiPrefix}`)
     console.log(`Server started on ${port}`)
+    logger.log((`App started on port ${port}!!!!!`))
   })
 }
 
