@@ -12,7 +12,7 @@ import { AppConfig } from './app.config.type'
 
 import { API_PREFIX } from 'src/shared/constants/global.constants'
 import * as pkginfo from '../../../package.json'
-import validateConfig from 'src/utils/validatate-config'
+import validateConfig from 'src/utils/validatate.config'
 
 enum Environment {
   Development = 'development',
