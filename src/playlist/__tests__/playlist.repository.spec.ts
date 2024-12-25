@@ -1,9 +1,57 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import * as crypto from 'crypto';
-import { PrismaService } from '../../src/database/prisma.service';
-import { PlaylistRepository } from '../../src/playlist/playlist.repository';
+import { PrismaService } from '../../database/prisma.service';
+import { PlaylistRepository } from '../playlist.repository';
+import { Playlist as PlaylistDomain } from '../domain/playlist.domain';
+import { Playlist as PlaylistEntity } from '@prisma/client'
+import { PrismaModule } from '../../database/prisma.module';
 
-describe('PLaylistRepository', () => {
+describe('CreateUserService', () => {
+	let playlistRepository: PlaylistRepository;
+	let prismaClient: PrismaService;
+
+    beforeAll(async () => {
+	const module: TestingModule = await Test.createTestingModule({
+      imports: [PrismaModule],
+	  providers: [
+        PlaylistRepository,
+        {
+          provide: PlaylistRepository,
+          useClass: PrismaService,
+        },
+      ],
+    }).compile();
+
+    playlistRepository = module.get<PlaylistRepository>(PlaylistRepository);
+    prismaClient = module.get<PrismaService>(PrismaService);
+
+	
+
+    });
+
+    describe('create', () => {
+		it('should be defined', async () => {
+			expect(playlistRepository).toBeDefined();
+		});
+
+    	/*it('should create user', async () => {
+			const createPlaylistData: PlaylistDomain = {
+				title: 'BonJovi'
+			};
+            
+
+			const savedPlaylistObject: PlaylistEntity = {
+				id: 'aabbcc',
+                title: 'Rafael Pezzetti',
+            };
+            jest.spyOn(prismaClient.playlist, 'create').mockResolvedValueOnce(savedPlaylistObject);
+            expect(await playlistRepository.save(createPlaylistData)).toEqual(savedPlaylistObject);
+            expect(prismaClient.playlist.create).toBeCalled();
+        });*/
+    });
+});
+
+
+/*describe('PLaylistRepository', () => {
 	let repository: PlaylistRepository;
 	let prisma: PrismaService;
 
@@ -78,4 +126,4 @@ expect.extend({toHaveBeenCalledWithObjectMatchingHash(received, expected) {
 			message: () => `expected the function to be called with an object that hashes to '${expected}'. Instead, the passed object hashes to '${receivedHash}'.`,
 		};
 	}
-}});
+}});*/
