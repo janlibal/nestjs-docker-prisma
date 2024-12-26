@@ -7,6 +7,7 @@ import { PlaylistModule } from '../playlist/playlist.module'
 import { PostModule } from '../post/post.module'
 import { SessionModule } from '../session/session.module'
 import { LoggerModule } from 'src/logger/logger.module'
+import { TaskModule } from 'src/task/task.module'
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { LoggerModule } from 'src/logger/logger.module'
     SessionModule,
     PlaylistModule,
     PostModule,
+    TaskModule
   ],
 })
 export class GlobalModule {}
