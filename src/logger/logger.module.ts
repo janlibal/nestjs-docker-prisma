@@ -1,14 +1,13 @@
-import { Global, Module } from '@nestjs/common';
-import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
-import { stdTimeFunctions } from 'pino';
-import * as uuid from 'uuid';
-import { FakeLoggerService } from './adapters/fake.logger.service';
-import { PinoLoggerService } from './adapters/pino.logger.service';
-
+import { Global, Module } from '@nestjs/common'
+import { LoggerModule as PinoLoggerModule } from 'nestjs-pino'
+import { stdTimeFunctions } from 'pino'
+import * as uuid from 'uuid'
+import { FakeLoggerService } from './adapters/fake.logger.service'
+import { PinoLoggerService } from './adapters/pino.logger.service'
 
 declare module 'http' {
   interface IncomingMessage {
-    requestId: string;
+    requestId: string
   }
 }
 

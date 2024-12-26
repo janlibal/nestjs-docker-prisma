@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../database/prisma.service'
 import { Session } from '../session/domain/session.domain'
-import { Session as SessionEntity } from '@prisma/client'
 import { SessionMapper } from './mapper/session.mapper'
 
 @Injectable()

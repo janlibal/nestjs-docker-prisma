@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { PrismaModule } from 'nestjs-prisma'
-import { PrismaService } from 'src/database/prisma.service'
+import { PrismaService } from '../database/prisma.service'
 import { SessionService } from './session.service'
 import { SessionRepository } from './session.repository'
 

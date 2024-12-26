@@ -9,11 +9,16 @@ import {
 import { PlaylistService } from './playlist.service'
 import { Playlist } from './domain/playlist.domain'
 import { PlaylistDto } from './dto/playlist.dto'
-import { PinoLoggerService } from 'src/logger/adapters/pino.logger.service'
+import { PinoLoggerService } from '../logger/adapters/pino.logger.service'
 
 @Controller()
 export class PlaylistController {
-  constructor(private readonly playlistService: PlaylistService, private readonly logger: PinoLoggerService) {this.logger.setContext('PlaylistController')}
+  constructor(
+    private readonly playlistService: PlaylistService,
+    private readonly logger: PinoLoggerService,
+  ) {
+    this.logger.setContext('PlaylistController')
+  }
 
   @Post('playlist')
   @HttpCode(HttpStatus.OK)
