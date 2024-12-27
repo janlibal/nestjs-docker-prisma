@@ -18,11 +18,11 @@ import { TodoModule } from 'src/todo/todo.module'
       envFilePath: ['.env'],
     }),
     LoggerModule,
-    /*AppModule,
+    AppModule,
     PrismaModule,
     SessionModule,
     PlaylistModule,
-    PostModule,*/
+    PostModule,
     TaskModule,
     TodoModule,
   ],

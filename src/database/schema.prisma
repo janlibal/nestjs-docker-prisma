@@ -55,3 +55,8 @@ model Playlist {
   id            String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title         String
 }
+
+model Task {
+  id            String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  description   String
+}
