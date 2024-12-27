@@ -8,6 +8,7 @@ import { PostModule } from '../post/post.module'
 import { SessionModule } from '../session/session.module'
 import { LoggerModule } from 'src/logger/logger.module'
 import { TaskModule } from 'src/task/task.module'
+import { TodoModule } from 'src/todo/todo.module'
 
 @Module({
   imports: [
@@ -17,12 +18,13 @@ import { TaskModule } from 'src/task/task.module'
       envFilePath: ['.env'],
     }),
     LoggerModule,
-    AppModule,
+    /*AppModule,
     PrismaModule,
     SessionModule,
     PlaylistModule,
-    PostModule,
-    TaskModule
+    PostModule,*/
+    TaskModule,
+    TodoModule
   ],
 })
 export class GlobalModule {}
