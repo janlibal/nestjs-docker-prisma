@@ -24,7 +24,7 @@ import { TodoModule } from 'src/todo/todo.module'
     PlaylistModule,
     PostModule,*/
     TaskModule,
-    TodoModule
+    TodoModule,
   ],
 })
 export class GlobalModule {}

@@ -1,33 +1,54 @@
-import { Controller, Get } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Controller, Get, Post, Delete, Param, Body } from '@nestjs/common'
+import { Observable } from 'rxjs'
+
+interface Todo {
+  id: string
+  title: string
+  completed: boolean
+}
 
 @Controller('example')
 export class ExampleController {
-  
-    @Get()
-  getData(): Observable<any> {
-    return this.fetchData().pipe(
-      map(data => {
-        // Transform the data using RxJS operators
-        return this.processData(data);
-      }),
-    );
+  private todos: Todo[] = []
+
+  @Get()
+  getAllTodos(): Observable<Todo[]> {
+    return new Observable((observer) => {
+      observer.next(this.todos)
+      observer.complete()
+    })
   }
 
-  private fetchData(): Observable<any> {
-    // Simulate an asynchronous data retrieval
-    return new Observable(observer => {
-      setTimeout(() => {
-        observer.next('Example data to be fetched@');
-        observer.complete();
-      }, 1000);
-    });
+  @Post()
+  createTodo(@Body() todo: Todo): Observable<Todo> {
+    return new Observable((observer) => {
+      this.todos.push(todo)
+      observer.next(todo)
+      observer.complete()
+    })
   }
 
-  private processData(data: any): any {
-    // Perform some processing on the data
-    const dataObject = 'This is the result: ' + data.toUpperCase()
-    return dataObject
+  @Delete(':id')
+  deleteTodoById(@Param('id') id: string): Observable<void> {
+    return new Observable((observer) => {
+      const index = this.todos.findIndex((todo) => todo.id === id)
+      if (index !== -1) {
+        this.todos.splice(index, 1)
+      }
+      observer.next()
+      observer.complete()
+    })
+  }
+
+  @Post(':id/complete')
+  completeTodoById(@Param('id') id: string): Observable<Todo> {
+    return new Observable((observer) => {
+      const todo = this.todos.find((todo) => todo.id === id)
+      if (todo) {
+        todo.completed = true
+        observer.next(todo)
+      }
+      observer.complete()
+    })
   }
 }
