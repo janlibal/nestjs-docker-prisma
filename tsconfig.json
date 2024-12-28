@@ -21,7 +21,7 @@
     "moduleResolution": "node", 
     "esModuleInterop": true,
     "strict": true,
-    "types": ["node", "jest"], // Add jest types here
+    "types": ["node", "vitest/globals"],
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],
   "exclude": ["node_modules"]   
