@@ -32,7 +32,7 @@ model User {
 model Quote {
   id     Int    @id @default(autoincrement())
   text   String
-  userId String
+  userId String @db.Uuid
   user   User   @relation(fields: [userId], references: [id])
   tags   Tag[]
 }

@@ -25,6 +25,8 @@
     "test": "vitest run",
     "test:unit": "vitest -c ./vitest.config.unit.ts",
     "test:unit:ui": "vitest -c ./vitest.config.unit.ts --ui",
+    "test:integration": "vitest -c ./vitest.config.integration.ts",
+    "test:integration:ui": "vitest -c ./vitest.config.integration.ts --ui",
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false"
@@ -73,7 +75,7 @@
     "typescript": "^5.1.3",
     
     "unplugin-swc": "^1.5.1",
-    "vitest": "^2.1.8",
+    "vitest": "^0.26.2",
     "vitest-mock-extended": "^2.0.2",
     "@types/supertest": "^2.0.11",
     "@vitest/coverage-c8": "^0.30.1",
