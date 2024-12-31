@@ -1,59 +1,83 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { PrismaClient } from '@prisma/client';
-import { PrismaService } from '../../src/database/prisma.service';
-import { PlaylistController } from '../../src/playlist/playlist.controller';
-import { PlaylistService } from '../../src/playlist/playlist.service';
-import { describe, afterEach, afterAll, beforeAll, beforeEach, it, expect } from 'vitest'
+import request from 'supertest'
+import { API_PREFIX, APP_URL } from '../helpers/constants'
 
+describe('App', () => {
+  const app = APP_URL
+  const prefix = API_PREFIX
 
-describe('User (integration)', () => {
-  let app: INestApplication;
-  let prismaService: PrismaService;
-  let prismaClient: PrismaClient;
-
-  beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [],
-      controllers: [PlaylistController],
-      providers: [PlaylistService, PrismaService],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    prismaService = app.get<PrismaService>(PrismaService);
-    await app.init();
-  });
-
-  beforeEach(async () => {
-    prismaClient = new PrismaClient();
-    await prismaClient.$connect();
-    await prismaClient.user.deleteMany();  // Clear the database before each test
-  });
-
-  afterEach(async () => {
-    await prismaClient.$disconnect();
-  });
-
-  it('should create and retrieve users', async () => {
-    const newPlaylist = { title: 'Summer tunes' };
-
-    // Test creating a user via the controller
-    const response = await request(app.getHttpServer())
-      .post('api/v1/playlist')
-      .send(newPlaylist)
-      .expect(201);
-
-    expect(response.body.id).toEqual('string');
-    expect(response.body.title).toEqual(newPlaylist.title);
-
-    // Test retrieving the user from the database
-    //const users = await prismaClient.user.findMany();
-    //expect(users).toHaveLength(1);
-    //expect(users[0].email).toEqual(newUser.email);
-  });
-
-  afterAll(async () => {
-    await app.close();
-  });
-});
+  describe('App', () => {
+    it('should return app info /api/v1/app/info (GET)', () => {
+      return request(app)
+        .get(`${prefix}/app/info`)
+        .expect(200)
+        .expect(({ body }) => {
+          expect(body.status).toBe(true)
+          expect(body.path).toMatch('/app/info')
+          expect(body.timestamp).toMatch(
+            /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/,
+          )
+          expect(body.statusCode).toBe(200)
+          expect(typeof body.result.name).toBe('string')
+          expect(typeof body.result.version).toBe('string')
+          expect(typeof body.result.description).toBe('string')
+          expect(typeof body.result.env.hostName).toBe('string')
+          expect(typeof body.result.env.platform).toBe('string')
+        })
+    })
+    /*it('should fail with non-existant url (GET)', () => {
+      return request(app)
+        .get(`${prefix}/wrong`)
+        .expect(404)
+        .expect(({ body }) => {
+          expect(body.status).toBe(false)
+          expect(body.statusCode).toBe(404)
+          expect(body.timestamp).toMatch(
+            /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/,
+          )
+          expect(body.path).toMatch('/api/v1/wrong')
+        })
+    })
+    it('should fail with non-existant url (POST)', () => {
+      return request(app)
+        .post(`${prefix}/wrong`)
+        .send()
+        .expect(404)
+        .expect(({ body }) => {
+          expect(body.status).toBe(false)
+          expect(body.statusCode).toBe(404)
+          expect(body.timestamp).toMatch(
+            /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/,
+          )
+          expect(body.path).toMatch('/api/v1/wrong')
+        })
+    })
+  })
+  it('should fail with non-existant url (PATCH)', () => {
+    return request(app)
+      .patch(`${prefix}/wrong`)
+      .send()
+      .expect(404)
+      .expect(({ body }) => {
+        expect(body.status).toBe(false)
+        expect(body.statusCode).toBe(404)
+        expect(body.timestamp).toMatch(
+          /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/,
+        )
+        expect(body.path).toMatch('/api/v1/wrong')
+      })
+  })
+  it('should fail with non-existant url (DELETE)', () => {
+    return request(app)
+      .delete(`${prefix}/wrong`)
+      .send()
+      .expect(404)
+      .expect(({ body }) => {
+        expect(body.status).toBe(false)
+        expect(body.statusCode).toBe(404)
+        expect(body.timestamp).toMatch(
+          /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/,
+        )
+        expect(body.path).toMatch('/api/v1/wrong')
+      })*/
+  })
+})
