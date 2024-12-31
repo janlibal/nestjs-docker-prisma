@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { AuthEmailLoginDto } from './dto/auth.email.login.dto'
 import { User } from './domain/user.domain'
 import { AppRepository } from './app.repository'
-
+import * as pkginfo from '../../package.json'
 import { Session as SessionEntity } from '@prisma/client'
 import { SessionService } from '../session/session.service'
 import { Session } from '../session/domain/session.domain'
+import { AppResponseDto } from './dto/app.response.dto'
 
 @Injectable()
 export class AppService {
@@ -49,5 +50,16 @@ export class AppService {
   ): Promise<Session> {
     const session = await this.sessionService.retrieve(data)
     return session
+  }
+
+  public async compileData(): Promise<AppResponseDto> {
+    const env = await this.appRepository.getEnv()
+    const data = {
+      name: pkginfo.name,
+      version: pkginfo.version,
+      description: pkginfo.description,
+      env,
+    }
+    return data
   }
 }

@@ -1,5 +1,6 @@
 import request from 'supertest'
 import { API_PREFIX, APP_URL } from '../helpers/constants'
+import { describe, it, expect } from 'vitest'
 
 describe('App', () => {
   const app = APP_URL

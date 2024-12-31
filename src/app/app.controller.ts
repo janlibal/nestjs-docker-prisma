@@ -12,6 +12,7 @@ import { LoginResponseDto } from './dto/login.response.dto'
 import { User } from './domain/user.domain'
 import { Session } from 'src/session/domain/session.domain'
 import { Session as SessionEntity } from '@prisma/client'
+import { AppResponseDto } from './dto/app.response.dto'
 
 @Controller()
 export class AppController {
@@ -29,5 +30,11 @@ export class AppController {
     @Body() data: Omit<Session, 'expiresAt' | 'createdAt' | 'hash' | 'userId'>,
   ): Promise<Session> {
     return this.appService.getSession(data)
+  }
+
+  @Get('/info')
+  @HttpCode(HttpStatus.OK)
+  public async getApiInfo(): Promise<AppResponseDto> {
+    return await this.appService.compileData()
   }
 }
