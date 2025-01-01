@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { PrismaService } from '../../database/prisma.service'
 import { vi, describe, beforeEach, it, expect } from 'vitest'
-import { TagRepository } from '../tag.repository'
+import { TagsRepository } from '../tags.repository'
 
 // Mock Prisma Service
 const mockPrismaService = {
@@ -12,18 +12,18 @@ const mockPrismaService = {
 }
 
 describe('TagRepository', () => {
-  let tagRepository: TagRepository
+  let tagRepository: TagsRepository
   let prismaService: PrismaService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        TagRepository,
+        TagsRepository,
         { provide: PrismaService, useValue: mockPrismaService },
       ],
     }).compile()
 
-    tagRepository = module.get<TagRepository>(TagRepository)
+    tagRepository = module.get<TagsRepository>(TagsRepository)
     prismaService = module.get<PrismaService>(PrismaService)
   })
 

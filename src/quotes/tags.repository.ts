@@ -3,7 +3,7 @@ import { PrismaService } from '../database/prisma.service'
 import randomColor from 'randomcolor'
 
 @Injectable()
-export class TagRepository {
+export class TagsRepository {
   constructor(private prisma: PrismaService) {}
 
   async getExistingTags(tags: string[]) {

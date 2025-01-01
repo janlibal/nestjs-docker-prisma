@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common'
 //import prisma from 'lib/prisma'
 import randomColor from 'randomcolor'
-import { PrismaService } from '../database/prisma.service'
-import { TagRepository } from './tag.repository'
+import { TagsRepository } from './tags.repository'
 
 @Injectable()
 export class TagService {
   constructor(
-    private prisma: PrismaService,
-    private tagRepository: TagRepository,
+    private tagRepository: TagsRepository,
   ) {}
 
   async upsertTags(tags: string[]) {
