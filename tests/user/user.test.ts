@@ -9,7 +9,7 @@ describe('App', () => {
   describe('App', () => {
     it('should return app info /api/v1/app/info (GET)', () => {
       return request(app)
-        .get(`${prefix}/app/info`)
+        .get(`${prefix}/info`)
         .expect(200)
         .expect(({ body }) => {
           expect(body.status).toBe(true)

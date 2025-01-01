@@ -10,7 +10,7 @@ export class PlaylistService {
     private playlistRepository: PlaylistRepository,
     private readonly logger: PinoLoggerService,
   ) {
-    this.logger.setContext('PlaylistService')
+    //this.logger.setContext('PlaylistService')
   }
 
   async createOne(playlistDto: PlaylistDto): Promise<Playlist> {

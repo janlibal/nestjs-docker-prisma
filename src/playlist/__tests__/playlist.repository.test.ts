@@ -11,7 +11,7 @@ const mockPrismaService = {
   },
 }
 
-describe('UserRepository', () => {
+describe('PlaylistRepository', () => {
   let playlistRepository: PlaylistRepository
   let prismaService: PrismaService
 
@@ -45,9 +45,7 @@ describe('UserRepository', () => {
       const result = await playlistRepository.save(createPlaylist)
 
       expect(result).toEqual(mockPlaylist)
-      expect(mockPrismaService.playlist.create).toHaveBeenCalledWith({
-        data: createPlaylist,
-      })
+      expect(mockPrismaService.playlist.create).toHaveBeenCalledWith({ data: createPlaylist })
     })
   })
 })
